@@ -6,8 +6,10 @@ import os
 @available(tvOS 10.0, *)
 @available(watchOS 3.0, *)
 public struct LoggingOSLog: LogHandler {
+    
     public var logLevel: Logger.Level = .info
     public let label: String
+
     private let oslogger: OSLog
     
     public init(label: String) {
@@ -30,7 +32,7 @@ public struct LoggingOSLog: LogHandler {
             )
         }
         
-        var formedMessage = message.description
+        var formedMessage = "\(level) \(file.split(separator: "/").last ?? "???.swift"):\(line) \(function) \(message)"
         if combinedPrettyMetadata != nil {
             formedMessage += " -- " + combinedPrettyMetadata!
         }
